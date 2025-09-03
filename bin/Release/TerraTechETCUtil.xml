@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TerraTechETCUtil</name>
+    </assembly>
+    <members>
+        <member name="P:TerraTechETCUtil.ActiveGameInterop.OurSender">
+            <summary>
+            The side this is working on
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.AudioInstFile">
+            <summary>
+            Used to store all important data of the AudioInst for accessing within the game
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AudioInstFile.#ctor">
+            <summary>
+            SERIALIZATION ONLY
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.ResourcesHelper.BlockFolderJsonFlag">
+            <summary>Add as a post or prefix to flag it as an additional asset item</summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetMeshFromModAssetBundle(System.String,System.Boolean)">
+            <summary>
+            Make sure the Mod AssetBundle is loaded first!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetTextureFromModAssetBundle(System.String,System.Boolean)">
+            <summary>
+            Make sure the Mod AssetBundle is loaded first!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.SerialGO.#ctor">
+            <summary>
+            EDITOR ONLY
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.ListHashSet`1">
+            <summary>
+            WAY MORE MEMORY-HEAVY and takes more processing to add and remove, but insures both list order AND
+            hash lookup speed
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:TerraTechETCUtil.FactionLevel">
+            <summary>
+            ONLY SUPPORTS RANKING OF FactionSubTypes (No modded corps!)
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.RawTech">
+            <summary>
+            the ACTIVE rawtech
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.RawTechBase.factionLim">
+            <summary>
+            Mostly here to restrict spawns based on best corp in the spawns
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.RawTechBase.IntendedGrade">
+            <summary>
+            Grade in RELATION to this tech's assigned faction.
+            </summary>
+        </member>
+    </members>
+</doc>
