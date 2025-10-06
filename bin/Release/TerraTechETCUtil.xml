@@ -22,14 +22,55 @@
         <member name="F:TerraTechETCUtil.ResourcesHelper.BlockFolderJsonFlag">
             <summary>Add as a post or prefix to flag it as an additional asset item</summary>
         </member>
-        <member name="M:TerraTechETCUtil.ResourcesHelper.GetMeshFromModAssetBundle(System.String,System.Boolean)">
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetMeshFromModAssetBundle(ModContainer,System.String,System.Boolean)">
             <summary>
             Make sure the Mod AssetBundle is loaded first!
             </summary>
         </member>
-        <member name="M:TerraTechETCUtil.ResourcesHelper.GetTextureFromModAssetBundle(System.String,System.Boolean)">
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetTextFromModAssetBundle(ModContainer,System.String,System.Boolean)">
             <summary>
             Make sure the Mod AssetBundle is loaded first!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetBinaryFromModAssetBundle(ModContainer,System.String,System.Boolean)">
+            <summary>
+            Make sure the Mod AssetBundle is loaded first!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetAudioFromModAssetBundle(ModContainer,System.String,System.Boolean)">
+            <summary>
+            Make sure the Mod AssetBundle is loaded first!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetAudioFromModAssetBundleCached(ModContainer,System.String,System.Boolean)">
+            <summary>
+            Make sure the Mod AssetBundle is loaded first!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetTextureFromModAssetBundle(ModContainer,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Make sure the Mod AssetBundle is loaded first!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.GetMaterialFromModAssetBundle(ModContainer,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Make sure the Mod AssetBundle is loaded first!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.FetchSound(ModContainer,System.String,System.String)">
+            <summary>
+            Searches in the respective ModContainer.  
+              If that fails to find anything then it looks in the mod's directory
+            </summary>
+            <param name="MC">Mod to search</param>
+            <param name="wavNameWithExt">The name of the sound</param>
+            <param name="DLLDirectory">The fallback location to find the sound in. 
+            Leave null to use the ModContainer's DLL</param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ResourcesHelper.AudioClipToFMODSound(UnityEngine.AudioClip,System.String,FMOD.Channel@)">
+            <summary>
+            Source for the AudioClip to FMOD.Sound: https://qa.fmod.com/t/load-an-audioclip-as-fmod-sound/11741/2
             </summary>
         </member>
         <member name="M:TerraTechETCUtil.ResourcesHelper.SerialGO.#ctor">
@@ -44,6 +85,33 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="M:TerraTechETCUtil.RawTechUtil.GetCorpExtended(BlockTypes)">
+            <summary>
+            Only call for cases where we want only vanilla corps!
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.RawTechUtil.ValidateBlocksInTech(TerraTechETCUtil.RawTechTemplate,System.Boolean,System.Boolean)">
+            <summary>
+            Checks all of the blocks in a BaseTemplate Tech to make sure it's safe to spawn as well as calculate other requirements for it.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.RawBlockMem.TidyUp">
+            <summary>
+            get rid of floating point errors
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.RawBlock">
+            <summary>
+            STRUCT! USE WITH CARE
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.RawBlock.TidyUp">
+            <summary>
+            get rid of floating point errors
+            </summary>
+        </member>
         <member name="T:TerraTechETCUtil.FactionLevel">
             <summary>
             ONLY SUPPORTS RANKING OF FactionSubTypes (No modded corps!)
@@ -54,6 +122,11 @@
             the ACTIVE rawtech
             </summary>
         </member>
+        <member name="M:TerraTechETCUtil.RawTech.ValidateBlocksInTech(System.Boolean,System.Boolean)">
+            <summary>
+            Checks all of the blocks in a Raw Tech to make sure it's safe to spawn as well as calculate other requirements for it.
+            </summary>
+        </member>
         <member name="F:TerraTechETCUtil.RawTechBase.factionLim">
             <summary>
             Mostly here to restrict spawns based on best corp in the spawns
@@ -62,6 +135,1523 @@
         <member name="F:TerraTechETCUtil.RawTechBase.IntendedGrade">
             <summary>
             Grade in RELATION to this tech's assigned faction.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.RawTechBase.FindProperRootBlockExternal(System.Collections.Generic.List{TankBlock})">
+            <summary>
+            Mandatory for techs that have plans to be built over time by the building AI.
+            The first block being an anchored block will determine if the entire techs live or not
+              on spawning. If this fails, there's a good chance the AI could have wasted money on it.
+            </summary>
+            <param name="ToSearch">The list of blocks to find the new root in</param>
+            <returns>The new Root block</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.RawTechBase.FindProperRootBlockExternal(System.Collections.Generic.List{TankPreset.BlockSpec})">
+            <summary>
+            Mandatory for techs that have plans to be built over time by the building AI.
+            The first block being an anchored block will determine if the entire techs live or not
+              on spawning. If this fails, there's a good chance the AI could have wasted money on it.
+            </summary>
+            <param name="ToSearch">The list of saved blocks to find the new root in</param>
+            <returns>The new Root block</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.RawTechBase.TechToMemoryExternal(Tank)">
+            <summary>
+            Mandatory for techs that have plans to be built over time by the building AI.
+            Since the first block placed ultimately determines the base rotation of the Tech
+             (Arrow shown on Radar/minimap) we must be ABSOLUTELY SURE to build teh Tech in relation
+              to that first block.
+              Any alteration on the first block's rotation will have severe consequences in the long run.
+              
+            Split techs on the other hand are mostly free from this issue.
+            </summary>
+            <param name="ToSearch">The list of blocks to find the new foot in</param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.RawTechBase.TechToBlocksExternal(Tank,System.Collections.Generic.List{TerraTechETCUtil.RawBlock})">
+            <summary>
+            Mandatory for techs that have plans to be built over time by the building AI.
+            Since the first block placed ultimately determines the base rotation of the Tech
+             (Arrow shown on Radar/minimap) we must be ABSOLUTELY SURE to build teh Tech in relation
+              to that first block.
+              Any alteration on the first block's rotation will have severe consequences in the long run.
+              
+            Split techs on the other hand are mostly free from this issue.
+            </summary>
+            <param name="ToSearch">The list of blocks to find the new foot in</param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.RawTechBase.TechToMemoryExternal(TechData,System.Boolean)">
+            <summary>
+            Mandatory for techs that have plans to be built over time by the building AI.
+            Since the first block placed ultimately determines the base rotation of the Tech
+             (Arrow shown on Radar/minimap) we must be ABSOLUTELY SURE to build teh Tech in relation
+              to that first block.
+              Any alteration on the first block's rotation will have severe consequences in the long run.
+              
+            Split techs on the other hand are mostly free from this issue.
+            </summary>
+            <param name="ToSearch">The list of blocks to find the new foot in</param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.RawTechBase.TechToBlocksExternal(TechData,System.Collections.Generic.List{TerraTechETCUtil.RawBlock},System.Boolean)">
+            <summary>
+            Mandatory for techs that have plans to be built over time by the building AI.
+            Since the first block placed ultimately determines the base rotation of the Tech
+             (Arrow shown on Radar/minimap) we must be ABSOLUTELY SURE to build teh Tech in relation
+              to that first block.
+              Any alteration on the first block's rotation will have severe consequences in the long run.
+              
+            Split techs on the other hand are mostly free from this issue.
+            </summary>
+            <param name="ToSearch">The list of blocks to find the new foot in</param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.RawTechTemplate.SpawnRawTech(UnityEngine.Vector3,System.Int32,UnityEngine.Vector3,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Spawns a RawTech IMMEDEATELY.  Do NOT Call while calling BlockMan or spawner blocks or the game will break!
+            </summary>
+            <param name="pos"></param>
+            <param name="Team"></param>
+            <param name="forwards"></param>
+            <param name="Blueprint"></param>
+            <param name="snapTerrain"></param>
+            <param name="Charged"></param>
+            <param name="ForceInstant"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TerraTechETCUtil.ExtendedWiki">
+            <summary>
+            Use this as a simple hook to extend the vanilla-side wiki!
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.GUIButtonMadness">
+            <summary>
+            THE POCKET BUTTON MANAGER
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.OpenModal(System.String,TerraTechETCUtil.GUI_BM_Element[],System.Func{System.Boolean},System.Int32)">
+            <summary>
+            Opens a Modal for player interaction.  Supports only [1-6] inputs.
+            </summary>
+            <param name="name">The name of the menu for modals with more than 6 inputs</param>
+            <param name="elements">The options in the menu</param>
+            <param name="CanDisplay">The check to tell if the window should remain open.  Leave null for default.</param>
+            <param name="ID">The GUI window's unique ID</param>
+            <exception cref="T:System.NullReferenceException"></exception>
+            <exception cref="T:System.IndexOutOfRangeException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.OpenModal(TankBlock,System.String,TerraTechETCUtil.GUI_BM_Element[],System.Func{System.Boolean},System.Int32)">
+            <summary>
+            Opens a Modal with block context for player interaction.  Supports only [1-6] inputs.
+            </summary>
+            <param name="opener">A valid block for it to open context for</param>
+            <param name="name">The name of the menu for modals with more than 6 inputs</param>
+            <param name="elements">The options in the menu</param>
+            <param name="CanDisplay">The check to tell if the window should remain open.  Leave null for default.</param>
+            <param name="ID">The GUI window's unique ID</param>
+            <exception cref="T:System.NullReferenceException"></exception>
+            <exception cref="T:System.IndexOutOfRangeException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.OpenVanillaModal(TankBlock,TerraTechETCUtil.GUI_BM_Element[])">
+            <summary>
+            Opens a vanilla UI Modal with block context for player interaction.  Supports only [1-6] inputs.
+            </summary>
+            <param name="opener">A valid block for it to open context for</param>
+            <param name="elements">The options in the menu</param>
+            <exception cref="T:System.NullReferenceException"></exception>
+            <exception cref="T:System.IndexOutOfRangeException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.CloseModal(System.Int32)">
+            <summary>
+            Closes the modal
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.CloseModal">
+            <summary>
+            Closes the modal
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.ModalIsOpen(System.Int32)">
+            <summary>
+            Returns true if modal is open
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.ModalIsOpen">
+            <summary>
+            Returns true if modal is open
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.SetDirty(System.Int32)">
+            <summary>
+            Refreshes the contents of the modal
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIModModal.SetDirty">
+            <summary>
+            Refreshes the contents of the modal
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.PlaceholderRadialMenu">
+            <summary>
+            Use Exund's over this one as it is crude
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.WikiPageDamageStats">
+            <summary>
+            Displays various stats
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.ManTimeOfDayExt">
+            <summary>
+            Override ManTimeOfDay SAFELY without making a mess!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManTimeOfDayExt.SetState(TerraTechETCUtil.ManTimeOfDayExt.TOD_Ordering)">
+            <summary>
+            Higher priority goes first
+            </summary>
+            <param name="modID"></param>
+            <param name="priority"></param>
+            <param name="setTheSky"></param>
+            <returns></returns>
+        </member>
+        <member name="F:TerraTechETCUtil.CursorChangeHelper.CursorTextureSwapBackup">
+            <summary>
+            Index, (Cursor base texture, Overwritten texture)
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.CursorChangeHelper.GetCursorChangeCache(System.String,System.String,ModContainer,System.Collections.Generic.KeyValuePair{System.String,System.Boolean}[])">
+            <summary>
+            Get the CursorChangeCache registered
+            </summary>
+            <param name="DLLDirectory">DLL Directory in disk.  Should be gathered on game startup and not preset.</param>
+            <param name="MC">ModContainer of the mod to look into for assets.  Use ResourcesHelper.TryGetModContainer() to get the mod container.</param>
+            <param name="cursorsByNameInOrder">Name of each cursor to add. Will be registered in a lookup in CursorIndexCache</param>
+        </member>
+        <member name="F:TerraTechETCUtil.CursorChangeHelper.CursorChangeCache._CursorIndexCache">
+            <summary>
+            Look up the index in this to get the actual index of the cursor you are going to use from memory
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.CursorChangeHelper.CursorChangeCache.#ctor(System.String,System.String,ModContainer,System.Collections.Generic.KeyValuePair{System.String,System.Boolean}[])">
+            <summary>
+            Index, (Cursor base texture, Overwritten texture)
+            </summary>
+            <summary>
+            Get the CursorChangeCache registered
+            </summary>
+            <param name=""></param>
+        </member>
+        <member name="P:TerraTechETCUtil.DebugExtUtilities.AllowEnableDebugGUIMenu_KeypadEnter">
+            <summary>
+            Allow the Debug menu of ExtUtil to be accessable from in-game with (HOLD) End, (PRESS) Return.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.DebugExtUtilities.DrawDirIndicator(UnityEngine.GameObject,System.Int32,UnityEngine.Vector3,UnityEngine.Color)">
+            <summary>
+            endPosGlobal is GLOBAL ROTATION in relation to local tech.
+            </summary>
+            <param name="obj">Parent GO</param>
+            <param name="num">Index (each DrawDirIndicator of this override to be shown each frame must have it's own unique index)</param>
+            <param name="endPosGlobalSpaceOffset">The other end of the Directional Indicator. In GLOBAL ROTATION in relation to local tech</param>
+            <param name="color">Color to display the Directional Indicator</param>
+        </member>
+        <member name="M:TerraTechETCUtil.DebugExtUtilities.GetUniqueColor(System.Int32,System.Single)">
+            <summary>
+            Gets a color with high contrast against other colors
+            </summary>
+            <param name="ID">The index to display. MUST be above 0</param>
+            <param name="opacity">The Opacity of the color</param>
+            <returns>The generated color to use</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.DebugExtUtilities.BlendColors(UnityEngine.Color,UnityEngine.Color,System.Single)">
+            <summary>
+            Blend two colors together.
+            </summary>
+            <param name="host">The main color to apply to</param>
+            <param name="toApply">The color to multiply/add to <paramref name="host"/></param>
+            <param name="strength">The strength of <paramref name="toApply"/> in adding it's colors. MUST be within [0 - 1]</param>
+            <returns>The blended color</returns>
+        </member>
+        <member name="F:TerraTechETCUtil.TerraApplyMode.FlushAutoHeightAdjust">
+            <summary>Sets the terrain to the values set in the TerrainModifier with a offset based on mode</summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerraApplyMode.Flush">
+            <summary>Sets the terrain to EXACTLY the values set in the TerrainModifier</summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerraApplyMode.None">
+            <summary>Do Nothing</summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerraApplyMode.Apply">
+            <summary>Precisely controls the terrain elevation to the values set in the TerrainModifier</summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerraApplyMode.Add">
+            <summary>Adds the terrain elevation to the values set in the TerrainModifier</summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerraApplyMode.Reset">
+            <summary>Returns the terrain to it's original form, using the TerrainModifier as a multiplier for the reset intensity</summary>
+        </member>
+        <member name="T:TerraTechETCUtil.TerrainModifierJSON">
+            <summary>
+            The compressed variant of TerrainModifier suitable for less disk space and less memory demand
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.TerrainModifier">
+            <summary>
+            The TerrainModifier at maximum quality
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerrainModifier.Position">
+            <summary>
+            This is ALWAYS the southwest corner of the entire TerrainModifier
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerrainModifier.UseAmplifiedTerrain">
+            <summary>
+            Set this to true if this is working off of the 4x height range when ManWorldGeneratorExt is set to extend terrain heights
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerrainModifier.Width">
+            <summary>
+            The size of ManWorld.inst.CellScale to convert to World scale
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerrainModifier.Height">
+            <summary>
+            The size of ManWorld.inst.CellScale to convert to World scale
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:TerraTechETCUtil.TerrainModifier.ApproxRadius" -->
+        <!-- Badly formed XML comment ignored for member "F:TerraTechETCUtil.TerrainModifier.ApproxRadiusDampen" -->
+        <member name="M:TerraTechETCUtil.TerrainModifier.#ctor">
+            <summary>
+            SERIALIZATION ONLY
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.SetAddInfoInterpHeight(IntVector2,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="modPos">TerrainModifier Coord to set</param>
+            <param name="interpHeight">0 is Default, 1 is TerrainModifier</param>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.SetModCellPosFromTileHeight(IntVector2,System.Single,System.Single)">
+            <summary>
+            Returns true if tile height was altered
+            </summary>
+            <param name="modPos"></param>
+            <param name="val"></param>
+            <param name="defaultVal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.Flush(UnityEngine.Vector3)">
+            <summary>
+            Flushes (applies the absolute contents to) the existing terrain.
+            CONFLICTS WITH ANY OTHER FLUSH OPERATIONS ON THE SAME TILE.  DO FIRST!
+            </summary>
+            <param name="ModSceneOverride">The offset from scene space origin</param>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.Flush">
+            <summary>
+            Flushes (applies the absolute contents to) the existing terrain.
+            DOES NOT WORK WITH MULTIPLE OVERLAPPING FLUSH OPERATIONS ON THE SAME TILE
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.FlushAdd(System.Single,System.Single,UnityEngine.Vector3)">
+            <summary>
+            Adds the contents of the TerrainModifier to the existing terrain.
+            Multiple operations
+            </summary>
+            <param name="ModSceneOverride">The offset from scene space origin</param>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.FlushApply(System.Single,System.Single,UnityEngine.Vector3)">
+            <summary>
+            Apply a TerrainModifier to existing terrain.
+            DOES NOT WORK WITH MULTIPLE OVERLAPPING FLUSH OPERATIONS ON THE SAME TILE
+            </summary>
+            <param name="curWeight">The weight of the terrain that already exists</param>
+            <param name="addWeight">The weight of the terrain that this TerrainModifier suggests</param>
+            <param name="ModSceneOverride">The offset from scene space origin</param>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.FlushApply(System.Single,System.Single)">
+            <summary>
+            Apply a TerrainModifier to existing terrain
+            DOES NOT WORK WITH MULTIPLE OVERLAPPING FLUSH OPERATIONS ON THE SAME TILE
+            </summary>
+            <param name="curWeight">The weight of the terrain that already exists</param>
+            <param name="addWeight">The weight of the terrain that this TerrainModifier suggests</param>
+            <param name="ModSceneOverride">The offset from origin</param>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.FlushLevel(System.Int32,System.Single,UnityEngine.Vector3)">
+            <summary>
+            Note: cannot use in Auto mode due to reliance on neighboors.  Scales poorly.
+            </summary>
+            <param name="gradientRadius"></param>
+            <param name="intensity"></param>
+            <param name="ModSceneOverride"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.AutoDelta0(WorldTile,System.Single[0:,0:]@,IntVector2@,System.Single[0:,0:]@)">
+            <summary>
+            YOU WILL NEED TO CALL AutoDelta1 AFTER
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.HasMainPartInTile(IntVector2)">
+            <summary>
+            
+            </summary>
+            <param name="delta">TileInPos to TerrainModifier space</param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.AutoDelta1(System.Single[0:,0:],IntVector2,IntVector2,System.Single[0:,0:],System.Single,System.Single,UnityEngine.Vector3,TerraTechETCUtil.TerraDampenMode)">
+            <summary>
+            YOU WILL NEED TO CALL PushFlush() AFTER
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.AutoDeltaSingle(System.Single,System.Single,UnityEngine.Vector3)">
+            <summary>
+            DOES NOT WORK PROPERLY IF ANY OVERLAPPING ARE SET TO FLUSH
+            </summary>
+            <param name="curWeight"></param>
+            <param name="addWeight"></param>
+            <param name="ModSceneOverride"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.TerrainModifier.GetCurrentHeights(WorldTile)">
+            <summary>
+            DO NOT CALL WHEN USING
+            IT IS RECYCLED FOR LATER CALLS
+            </summary>
+            <param name="tile"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TerraTechETCUtil.ModManagerGUI">
+            <summary>
+            It's main goal is to create a persistant, managed GUI window.
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.BlockIndexer">
+            <summary>
+            A temporary way of doing reverse block lookups for the time being
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockIndexer.StringToBlockType(System.String)">
+            <summary>
+            Searches Block Injector for the block based on root GameObject name.
+            </summary>
+            <param name="mem">The name of the block's root GameObject.  This is also set in the Official Mod Tool by the Name ID (filename of the .json), not the name you give it.</param>
+            <returns>The Block Type to use if it found it, otherwise returns BlockTypes.GSOCockpit_111</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockIndexer.StringToBlockType(System.String,BlockTypes@)">
+            <summary>
+            Searches the ENTIRE GAME for the block based on root GameObject name.
+            </summary>
+            <param name="mem">The name of the block's root GameObject.  This is also set in the Official Mod Tool by the Name ID (filename of the .json), not the name you give it.</param>
+            <param name="BT">The Block Type to use if it found it</param>
+            <returns>True if it found it in Block Injector</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockIndexer.StringToBIBlockType(System.String,BlockTypes@)">
+            <summary>
+            Searches Block Injector for the block based on root GameObject name.
+            </summary>
+            <param name="mem">The name of the block's root GameObject.  This is also set in the Official Mod Tool by the Name ID (filename of the .json), not the name you give it.</param>
+            <param name="BT">The Block Type to use if it found it</param>
+            <returns>True if it found it in Block Injector</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockIndexer.ConstructBlockLookupListDelayed">
+            <summary>
+            Builds the lookup to use when using block names to find BlockTypes
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockIndexer.ConstructBlockLookupList">
+            <summary>
+            Builds the lookup to use when using block names to find BlockTypes
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockIndexer.PrepareModdedBlocksFetch">
+            <summary>
+            Delay this until AFTER Block Injector to setup the lookups
+            </summary>
+            <summary>
+            Call at least once to hook up to modding
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockIndexer.FindProperRootBlockExternal(System.Collections.Generic.List{TankBlock})">
+            <summary>
+            Mandatory for techs that have plans to be built over time by the building AI.
+            The first block being an anchored block will determine if the entire techs live or not
+              on spawning. If this fails, there's a good chance the AI could have wasted money on it.
+            </summary>
+            <param name="ToSearch">The list of blocks to find the new root in</param>
+            <returns>The new Root block</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockIndexer.BlockMemory.TidyUp">
+            <summary>
+            get rid of floating point errors
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.BlockIndexer.FactionTypesExt">
+            <summary>
+            Obsolete - Will phase out.
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.TechLoaderExt">
+            <summary>
+            Makes the TechSelector usable for Mods, and for general other case usages
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.TechLoaderExt.Open(System.Action{Snapshot},Snapshot,System.Boolean,System.Boolean)">
+            <summary>
+            To use the Tech Loader UI. 
+            Note it returns null if the tech selected is NULL or the window is reopened for a different purpose.
+            </summary>
+            <param name="CallbackOnSelected">To invoke</param>
+            <param name="PrevSnap">The last snapshot you want this to default to</param>
+            <param name="overrideRequest">If you don't want an exception thrown if there is already a request on the UI</param>
+            <exception cref="T:System.InvalidOperationException">If there is already another TechLoader UI operation in progress</exception>
+        </member>
+        <member name="M:TerraTechETCUtil.TechLoaderExt.AssignFolder(System.Action{System.String},System.String,System.Boolean)">
+            <summary>
+            To use the Tech Loader UI. 
+            Note it returns null if the folder selected is NULL or the window is reopened for a different purpose.
+            </summary>
+            <param name="CallbackOnSelected">To invoke</param>
+            <param name="PrevFolder">The last folder you want this to default to</param>
+            <param name="overrideRequest">If you don't want an exception thrown if there is already a request on the UI</param>
+            <exception cref="T:System.InvalidOperationException">If there is already another TechLoader UI operation in progress</exception>
+        </member>
+        <member name="T:TerraTechETCUtil.InvokeHelper">
+            <summary>
+            Do not use unless absolutely nesseary - MonoBehaviour.Invoke is safer
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.InvokeSingleRepeat(System.Action,System.Single)">
+            <summary>
+            Invoke a MethodInfo-level instance repeatedly of the given Action after a set delay. 
+            Will overwrite previous MethodInfo invoke requests.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvokeSingleRepeat(System.Action)">
+            <summary>
+            Cancels any MethodInfo-level of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the MethodInfo-level invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.InvokeSingle(System.Action,System.Single,System.Boolean)">
+            <summary>
+            Invoke only ONE MethodInfo-level instance of the given Action after a set delay. 
+            Will overwrite previous MethodInfo invoke requests.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+            <param name="ForceSet">To force set the Single's delay again.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.InvokeSingle``1(System.Action{``0},System.Single,``0,System.Boolean)">
+            <summary>
+            Invoke only ONE MethodInfo-level instance of the given Action after a set delay. 
+            Will overwrite previous MethodInfo invoke requests.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+            <param name="in1">Invoke param 1.</param>
+            <param name="ForceSet">To force set the Single's delay again.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.InvokeSingle``2(System.Action{``0,``1},System.Single,``0,``1,System.Boolean)">
+            <summary>
+            Invoke only ONE MethodInfo-level instance of the given Action after a set delay. 
+            Will overwrite previous MethodInfo invoke requests.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+            <param name="in1">Invoke param 1.</param>
+            <param name="in2">Invoke param 2.</param>
+            <param name="ForceSet">To force set the Single's delay again.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.InvokeSingle``3(System.Action{``0,``1,``2},System.Single,``0,``1,``2,System.Boolean)">
+            <summary>
+            Invoke only ONE MethodInfo-level instance of the given Action after a set delay. 
+            Will overwrite previous MethodInfo invoke requests.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+            <param name="in1">Invoke param 1.</param>
+            <param name="in2">Invoke param 2.</param>
+            <param name="in3">Invoke param 3.</param>
+            <param name="ForceSet">To force set the Single's delay again.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvokeSingle(System.Action)">
+            <summary>
+            Cancels any MethodInfo-level of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the MethodInfo-level invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvokeSingle``1(System.Action{``0})">
+            <summary>
+            Cancels any MethodInfo-level of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the MethodInfo-level invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvokeSingle``2(System.Action{``0,``1})">
+            <summary>
+            Cancels any MethodInfo-level of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the MethodInfo-level invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvokeSingle``3(System.Action{``0,``1,``2})">
+            <summary>
+            Cancels any MethodInfo-level of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the MethodInfo-level invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.InvokeNextUpdate(System.Action)">
+            <summary>
+            Invoke the given instance of the given Action the next time Update happens.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.Invoke(System.Action,System.Single)">
+            <summary>
+            Invoke the given instance of the given Action after a set delay.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.Invoke``1(System.Action{``0},System.Single,``0)">
+            <summary>
+            Invoke the given instance of the given Action after a set delay.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+            <param name="in1">Invoke param 1.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.Invoke``2(System.Action{``0,``1},System.Single,``0,``1)">
+            <summary>
+            Invoke the given instance of the given Action after a set delay.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+            <param name="in1">Invoke param 1.</param>
+            <param name="in2">Invoke param 2.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.Invoke``3(System.Action{``0,``1,``2},System.Single,``0,``1,``2)">
+            <summary>
+            Invoke the given instance of the given Action after a set delay.
+            </summary>
+            <param name="act">The Method to invoke after delay time.</param>
+            <param name="delay">The delay before we invoke.  
+            Note this will not invoke immedeately when the time is passed.</param>
+            <param name="in1">Invoke param 1.</param>
+            <param name="in2">Invoke param 2.</param>
+            <param name="in3">Invoke param 3.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvoke(System.Action)">
+            <summary>
+            Cancels the instance of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvoke``1(System.Action{``0})">
+            <summary>
+            Cancels the instance of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvoke``2(System.Action{``0,``1})">
+            <summary>
+            Cancels the instance of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.CancelInvoke``3(System.Action{``0,``1,``2})">
+            <summary>
+            Cancels the instance of invoke request set.
+            </summary>
+            <param name="act">The Method to cancel the invoke for.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.InvokeHelper.PrintAllActiveInvokes">
+            <summary>
+            Print all of the currently active Invokes being run by InvokeHelper.
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.ModStatusChecker.ShowSetting">
+            <summary>
+            0. Show Always
+            <list type="number">
+            <item>Show on Warnings</item>
+            <item>Show Errors</item>
+            <item>Never Show</item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:TerraTechETCUtil.ModStatusChecker.InitFailiure">
+            <summary>
+            A non-repeating error has occurred in one of our mod boot attempts and this is bad
+            </summary>
+        </member>
+        <member name="P:TerraTechETCUtil.ModStatusChecker.EpicFailiure">
+            <summary>
+            A repeating error has occurred in one of our mod boot attempts and this is REALLY bad
+            </summary>
+        </member>
+        <member name="P:TerraTechETCUtil.ModStatusChecker.OutstandingFailiure">
+            <summary>
+            TerraTechETCUtil (this class' dll) failed to init entirely, which will probably bring down all mods that rely on it!!!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ModStatusChecker.EncapsulateSafeInit(System.String,System.Action,System.Action,System.Boolean)">
+            <summary>
+            Inits a mod with enhanced error handling.
+            </summary>
+            <param name="ModID">The string ModID of a mod, which is given when making it in TerraTechModTool</param>
+            <param name="init">The function that starts up the mod.  Must be a function in the mod itself.</param>
+            <param name="onFail">Called if the function hit an exception</param>
+            <param name="doChainFail">Stop the next mods that are to be loaded using EncapsulateSafeInit()</param>
+        </member>
+        <member name="M:TerraTechETCUtil.ModStatusChecker.CheckStatusOfMod(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name">has to be the EXACT name of the mod!</param>
+            <returns></returns>
+        </member>
+        <member name="T:TerraTechETCUtil.SFXHelpers">
+            <summary>
+            Handle ingame SFX here
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.SFXHelpers.RegisterFloatingSFX``1(UnityEngine.Transform,``0)">
+            <summary>
+            Not advised.  Allows playing of SFX BUT it's incorrectly tied to the position 
+             of the first player Tech that was active the first time this function is called!!!
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="trans"></param>
+            <param name="module"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.SFXHelpers.UnregisterFloatingSFX``1(UnityEngine.Transform,``0)">
+            <summary>
+            Not advised.  Allows playing of SFX BUT it's incorrectly tied to the position 
+             of the first player Tech that was active the first time this function is called!!!
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="trans"></param>
+            <param name="module"></param>
+        </member>
+        <member name="F:TerraTechETCUtil.ManAudioExt.latentPosVec">
+            <summary>
+            Needed to deal with desync
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AutoDocumentator.StringBuild(System.Object,UnityEngine.Transform,System.Text.StringBuilder,TerraTechETCUtil.SlashState,System.Int32,System.Boolean)">
+            <summary>
+            Does NOT return end comma with newline!
+            </summary>
+            <param name="inst"></param>
+            <param name="trans"></param>
+            <param name="SB"></param>
+            <param name="slash"></param>
+            <param name="tabs"></param>
+            <param name="ShowName"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:TerraTechETCUtil.NetworkHook" -->
+        <member name="M:TerraTechETCUtil.NetworkHook.Enable">
+            <summary>
+            Must be called before game scene fully loads.  Do not unhook unless we are certain the hook is no longer needed!
+            </summary>
+            <returns>true if it worked, false if failed</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.NetworkHook.Disable">
+            <summary>
+            Must be called before game scene fully unloads.  Do not unhook unless we are certain the hook is no longer needed!
+            </summary>
+            <returns>true if it worked, false if failed</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:TerraTechETCUtil.NetworkHook.OnToClientReceive_Internal(UnityEngine.Networking.NetworkMessage)" -->
+        <!-- Badly formed XML comment ignored for member "M:TerraTechETCUtil.NetworkHook.OnToServerReceive_Internal(UnityEngine.Networking.NetworkMessage)" -->
+        <member name="F:TerraTechETCUtil.NetworkHook`1.receiveAction">
+            <summary>
+            MessageBase, IsServer
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.PhysicsLockMain">
+            <summary>
+            The main side of the PhysicsLock which holds the module. Not to be called externally.
+            <para>MUST BE ON TANK SIDE!</para>
+                Rests in the root layer of Transform hierachy to function.
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.PhysicsLock">
+            <summary>
+            This provides a simple class to connect two Rigidbodies together in a rough, but understandable way.
+              Does not support breaking forces of infinity since that will cause unstability
+            </summary>
+        </member>
+        <member name="P:TerraTechETCUtil.PhysicsLock.extent">
+            <summary>
+            Extends the head of the joint along the y-axis.  Useful for pistons
+            </summary>
+        </member>
+        <member name="P:TerraTechETCUtil.PhysicsLock.rotation">
+            <summary>
+            Rotates the coupler around the y-axis constantly.  Useful for motors
+            </summary>
+        </member>
+        <member name="P:TerraTechETCUtil.PhysicsLock.angle">
+            <summary>
+            Sets the y-angle of the coupler to something precise.  Useful for servos
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.SpecialAttract">
+            <summary>
+            Add new Attract Types using this to showcase cool stuff on the title screen I guess
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.SpecialAttract.AttractInfo.#ctor(System.String,System.Single,System.Func{ModeAttract,System.Boolean},System.Func{ModeAttract,System.Boolean},System.Action{ModeAttract},System.Boolean,System.Int32)">
+            <summary>
+            Weight CANNOT be negative or 0!
+            </summary>
+            <param name="Name"></param>
+            <param name="Weight"></param>
+        </member>
+        <member name="T:TerraTechETCUtil.TerrainOperations">
+            <summary>
+            Remember, when we rescale the terrain, we only scale the TERRAIN, not the other things!
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.TerrainOperations.BeachingMode">
+            <summary>
+            BROKEN, DO NOT USE UNTIL FURTHER NOTICE!!!
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.TextfieldBlue">
+            <summary>
+            Panel_BLUE_BG
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.TextfieldBorderedBlue">
+            <summary>
+            STD_Text_Box_01
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.textInput">
+            <summary>
+            For the Popups that appear like the BB sold thing
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.listOverlays">
+            <summary>
+            For the Popups that appear like the BB sold thing
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.rects">
+            <summary>
+            For the Popups that appear like the BB sold thing
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.sScale">
+            <summary>
+            For the Popups that appear like the BB sold thing
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.scale">
+            <summary>
+            For the Popups that appear like the BB sold thing
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.canvas">
+            <summary>
+            For the Popups that appear like the BB sold thing
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.AltUI.CaseThis">
+            <summary>
+            For the Popups that appear like the BB sold thing
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.IChildModuleWeapon">
+            <summary>
+            Interface to get in contact with ChildModuleWeapon (if it exists)
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.ChildProjectile">
+            <summary>
+            Manages ChildModules on an active Projectile
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.ExtGimbal.forwardsAim">
+            <summary>
+            LOCAL
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.ExtGimbal.upAim">
+            <summary>
+            LOCAL
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.ExtModule">
+            <summary>
+            Used solely for this mod for modules compat with MP
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ExtModule.OnPool">
+            <summary>
+            Always fires first before the module
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.ChildModule">
+            <summary>
+            Used for MP-compatable modules that also need to operate away from the base block GameObject position.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ChildModule.OnPool">
+            <summary>
+            Always fires first before the module
+            Call to hook up to the block or Projectile
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ChildModule.OnPostPool">
+            <summary>
+            Call to init hooks to modules WITHIN the block itself or the firing block
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.BlockDebug.ThrowWarning(System.Boolean,System.String)">
+            <summary>
+            Assert!
+            </summary>
+            <param name="Text">What we assert.</param>
+        </member>
+        <member name="T:TerraTechETCUtil.ExtProj">
+            <summary>
+            Does nothing. DO NOT USE ALONE.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ExtProj.Pool">
+            <summary>
+            Use PB (ProjBase) to access the main projectile from now on.
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.ProjBase">
+            <summary>
+            Does nothing. DO NOT USE ALONE.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ProjBase.PrePoolTryApplyThis(Projectile)">
+            <summary>
+            PrePool should NOT BE USED to set reference links!  Only to set up variables to copy!
+            </summary>
+            <param name="inst"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.OnPool_Postfix(Projectile)">
+            <summary>
+            PatchProjectile
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.OnRecycle_Prefix(Projectile)">
+            <summary>
+            PatchProjectileRemove
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.HandleCollision_Prefix(Projectile,Damageable@,UnityEngine.Vector3@,UnityEngine.Collider@,System.Boolean@)">
+            <summary>
+            PatchProjectileCollision
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.Fire_Postfix(Projectile,FireData@,ModuleWeapon@,Tank@)">
+            <summary>
+            PatchProjectileFire
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.ManIngameWiki.WikiPage.title">
+            <summary>
+            The ENGLISH title
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.DisplaySidebar">
+            <summary>
+            The GUI call for generating it's button on the left sidebar
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.ExternalDisplayGUI">
+            <summary>
+            USE AT YOUR OWN RISK!
+              Displays the wiki page contents in whatever OnGUI() window system you call this in.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.DisplayGUI">
+            <summary>
+            All of the contents of the WikiPage to display context of
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.GetIcon">
+            <summary>
+            A call to cache the icon that represents this page
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.GetIconImage(UnityEngine.GameObject,System.Action)">
+            <summary>
+            Brute-force generates an icon image for the given GameObject using the game's camera.  
+              Using this is not advised.
+            </summary>
+            <param name="GO">The GameObject to generate a icon for.</param>
+            <param name="removalCallback">Called after the icon image was taken for cleanup.</param>
+            <exception cref="T:System.OperationCanceledException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.IterateForInfo``1">
+            <summary>
+            Iterate EVERY page of the same type to change or collect data from.  Slow!
+            </summary>
+            <typeparam name="T">The type of page to iterate for</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.OnBeforeDisplay">
+            <summary>
+            Called before the page is displayed to the user.  Useful for last-second actions!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.OnGameModeSwitch(Mode)">
+            <summary>
+            Called when the game switched Modes.  
+              Only updates immedeately if the Wiki is open or when the Wiki is opened.
+            </summary>
+            <param name="mode"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.OnWikiClosed">
+            <summary>
+            Called when the whole Wiki is closed.  
+              Useful to save memory.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManIngameWiki.WikiPage.ReplaceThis(TerraTechETCUtil.ManIngameWiki.WikiPage)">
+            <summary>
+            Replace a target wiki page
+            </summary>
+            <param name="replacement">the page to replace the targeted with</param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="F:TerraTechETCUtil.ManIngameWiki.GUIInst._WikiWindowOpen">
+            <summary>
+            To ONLY be set by GUIInst.SetGUI(bool state)!!!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ChangePopupPositioning(UnityEngine.Vector2,TerraTechETCUtil.GUIPopupDisplay)">
+            <summary>
+            screenPos x and y must be within 0-1 float range!
+            </summary>
+            <param name="screenPos"></param>
+            <param name="disp"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.PopupPositioningApprox(TerraTechETCUtil.GUIPopupDisplay,System.Single)">
+            <summary>
+            screenPos x and y must be within 0-1 float range!
+            </summary>
+            <param name="screenPos"></param>
+            <param name="disp"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ClearTempHidden">
+            <summary>
+            Reset the UI so it doesn't try to reopen menus
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowGUI(ManHUD.HUDElementType)">
+            <summary>
+            DO NOT ITERATE TempHidden WHEN CALLING THIS
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.TryReopenPreviouslyClosedUI">
+            <summary>Attempts to reopen any windows closed by HideAllObstructingUI() or HideGUI()</summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ForceReleaseRightMouse">
+            <summary>
+              Makes the mouse release hold of whatever it was holding previously. 
+               USE SPARINGLY AS THIS IS ANNOYING TO DEAL WITH!!!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ForceReleaseMiddleMouse">
+            <summary>
+              Makes the mouse release hold of whatever it was holding previously. 
+               USE SPARINGLY AS THIS IS ANNOYING TO DEAL WITH!!!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ForceReleaseLeftMouse">
+            <summary>
+              Makes the mouse release hold of whatever it was holding previously. 
+               USE SPARINGLY AS THIS IS ANNOYING TO DEAL WITH!!!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(UnityEngine.Vector2,TerraTechETCUtil.GUIPopupDisplay)">
+            <summary>
+            Position in percent of the max screen width and length
+            </summary>
+            <param name="screenPos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(UnityEngine.Vector2)">
+            <summary>
+            Position in percent of the max screen width and length. 
+             Controls the currentGUIWindow
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup">
+            <summary>
+            Controls the currentGUIWindow
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.GUIMiniMenu`1">
+            <summary>
+            A universal menu for use
+            </summary>
+        </member>
+        <member name="P:TerraTechETCUtil.UIHelpersExt.BigF5broningBannerActive">
+            <summary>
+            The BigF5broningBanner is active and shown on the screen.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.UIHelpersExt.BigF5broningBanner(System.String,System.Boolean)">
+            <summary>
+            Make a big, nice obvious warning on the screen that's nearly impossible to miss.
+            </summary>
+            <param name="Text">What text to show on the banner.  Set to nothing to hide immedeately.</param>
+            <param name="startNoise">Play payload inbound warning SFX for duration of showing.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.UIHelpersExt.PointAtTransform(UnityEngine.Transform,UnityEngine.Vector3,System.Single)">
+            <summary>
+            Client Only!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.UIHelpersExt.PointAtThis(UnityEngine.Transform,UnityEngine.Vector3,System.Single)">
+            <summary>
+            Client Only!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.UIHelpersExt.MouseIsOverSubMenu(UnityEngine.Rect)">
+            <summary>
+            Check if the mouse is over the given GUI.Window Rect
+            </summary>
+            <param name="pos">The Window's Rect on the screen</param>
+            <returns>If the mouse is DIRECTLY within the specified rect on the screen</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.UIHelpersExt.ClampMenuToScreen(UnityEngine.Rect@,System.Boolean)">
+            <summary>
+            Clamps the given Rect to be fully within bounds of the screen.  
+            This may not be possible if the screen is too small to fit the Rect entirely.
+            </summary>
+            <param name="pos">The Rect to clamp within the screen bounds</param>
+            <param name="centerOnMouse">If it should re-center on the mouse, then clamp to screen</param>
+        </member>
+        <member name="M:TerraTechETCUtil.AutoDataExtractorInst.GetJsonFormatted(UnityEngine.Component,System.Text.StringBuilder,TerraTechETCUtil.SlashState,System.Int32)">
+            <summary>
+            Does NOT return end comma with newline!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.WikiPageCorp.GatheredInfo.#ctor(System.Int32)">
+            <summary>
+            Gather ALL the details by mathmatical, computational BRUTE-FORCE
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.Utilities">
+            <summary>
+            Manages extension methods for various classes.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.GetSetFlagBitShift``1(``0@,``0,System.Boolean)">
+            <summary>
+            Get and set a flag QUICKLY!
+            </summary>
+            <typeparam name="T">Enum (MUST BE INT32)</typeparam>
+            <param name="inst">The enum to adjust</param>
+            <param name="flagBit">The flag to adjust</param>
+            <param name="trueState">The state to set</param>
+            <returns>True if it changed the enum value</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.GetSetFlag``1(``0@,``0,System.Boolean)">
+            <summary>
+            Get and set a flag QUICKLY!
+            </summary>
+            <typeparam name="T">Enum (MUST BE INT32)</typeparam>
+            <param name="inst">The enum to adjust</param>
+            <param name="flagBit">The flag to adjust</param>
+            <param name="trueState">The state to set</param>
+            <returns>True if it changed the enum value</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.HasAnyFlag``1(``0@,``0)">
+            <summary>
+            Gets flags in enum
+            </summary>
+            <typeparam name="T">Enum</typeparam>
+            <param name="inst">The enum to check</param>
+            <param name="flag">The flag to test for</param>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.HasFlagBitShift``1(``0@,``0)">
+            <summary>
+            Gets flags that aren't bit-shifted in enum
+            </summary>
+            <typeparam name="T">Enum</typeparam>
+            <param name="inst">The enum to check</param>
+            <param name="flag">The flag to test for</param>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.SetFlags``1(``0@,``0,System.Boolean)">
+            <summary>
+            Sets flags that are already bit-shifted in enum
+            </summary>
+            <typeparam name="T">Enum</typeparam>
+            <param name="inst">The enum to set</param>
+            <param name="flags">The flags to set</param>
+            <param name="state">The state to set</param>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.SetFlagsBitShift``1(``0@,System.Boolean,``0[])">
+            <summary>
+            Sets flags that aren't bit-shifted in enum
+            </summary>
+            <typeparam name="T">Enum</typeparam>
+            <param name="inst"></param>
+            <param name="state">The state to set</param>
+            <param name="flags">All targeted flags</param>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.SubToBlockAttachConnected(TankBlock,System.Action,System.Action)">
+            <summary>
+            When a ExtModule must respond to block attach updates, use this.
+            For block attachment updates when Tank is set to a valid reference.
+            </summary>
+            <param name="TB">TankBlock instance</param>
+            <param name="attachEvent">Action to call on block attach.</param>
+            <param name="detachEvent">Action to call on block detach.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.UnSubToBlockAttachConnected(TankBlock,System.Action,System.Action)">
+            <summary>
+            When a ExtModule no longer needs to respond to block attach updates, use this.
+            For block attachment updates when Tank is set to a valid reference.
+            </summary>
+            <param name="TB">TankBlock instance</param>
+            <param name="attachEvent">Action to call on block attach.</param>
+            <param name="detachEvent">Action to call on block detach.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.HeavyTransformSearch(UnityEngine.Transform,System.String)">
+            <summary>
+            Finds the first Transform that matches the given name.
+            Case sensitive.
+            </summary>
+            <param name="trans">The parent Transform to search through.</param>
+            <param name="name">The name of the Transform to find. Case sensitive.</param>
+            <returns>The found Transform if any, otherwise returns null.</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.PrintAllComponentsGameObjectDepth``1(UnityEngine.GameObject)">
+            <summary>
+            Finds all Components of type T within a given GameObject's children.
+            </summary>
+            <typeparam name="T">The type to search for.</typeparam>
+            <param name="GO">The GameObject to search.</param>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.AddInlined``3(System.Collections.Generic.IDictionary{``0,``1},``0,``2)">
+            <summary>
+            Add to a ICollection within a IDictionary.
+            </summary>
+            <typeparam name="T">IDictionary</typeparam>
+            <typeparam name="V">ICollection</typeparam>
+            <typeparam name="E">Within ICollection</typeparam>
+            <param name="dict">IDictionary instance</param>
+            <param name="key">Key to look up in the IDictionary</param>
+            <param name="typeToAdd">The element to add to the list nested in the dictionary.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.GetInlined``3(System.Collections.Generic.IDictionary{``0,``1},``0,``2)">
+            <summary>
+            Add to a ICollection within a IDictionary.
+            </summary>
+            <typeparam name="T">IDictionary</typeparam>
+            <typeparam name="V">ICollection</typeparam>
+            <typeparam name="E">Within ICollection</typeparam>
+            <param name="dict">IDictionary instance</param>
+            <param name="key">Key to look up in the IDictionary</param>
+            <param name="typeToAdd">The element to add to the list nested in the dictionary.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.RemoveInlined``3(System.Collections.Generic.IDictionary{``0,``1},``0,``2)">
+            <summary>
+            Remove from an ICollection within a IDictionary.
+            </summary>
+            <typeparam name="T">IDictionary</typeparam>
+            <typeparam name="V">ICollection</typeparam>
+            <typeparam name="E">Within ICollection</typeparam>
+            <param name="dict">IDictionary instance</param>
+            <param name="key">Key to look up in the IDictionary.</param>
+            <param name="typeToRemove">The element to remove from the list nested in the dictionary.</param>
+            <returns>true if the element was successfully removed.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.AddInlined``4(System.Collections.Generic.IDictionary{``0,``1},``0,``2,``3)">
+            <summary>
+            Add to a IDictionary within a IDictionary.
+            </summary>
+            <typeparam name="T">IDictionary key</typeparam>
+            <typeparam name="V">IDictionary nested within T</typeparam>
+            <typeparam name="E">Nested IDictionary key</typeparam>
+            <typeparam name="A">Within IDictionary</typeparam>
+            <param name="dict">Dictionary instance</param>
+            <param name="key">Key to look up in the Dictionary</param>
+            <param name="typeToAdd">The element to add to the dictionary nested in the dictionary.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.Utilities.RemoveInlined``4(System.Collections.Generic.IDictionary{``0,``1},``0,``2)">
+            <summary>
+            Remove from an IDictionary within a IDictionary.
+            </summary>
+            <typeparam name="T">IDictionary key</typeparam>
+            <typeparam name="V">IDictionary nested within T</typeparam>
+            <typeparam name="E">Nested IDictionary key</typeparam>
+            <typeparam name="A">Within IDictionary</typeparam>
+            <param name="dict">Dictionary instance</param>
+            <param name="key">Key to look up in the IDictionary.</param>
+            <param name="typeToRemove">The key to remove from the dictionary nested in the dictionary.</param>
+            <returns>true if the element was successfully removed.</returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.RushTileLoading">
+            <summary>
+            Rush loading ALL Worldtiles.  Only affects our client
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostCanCommandTileLoaderQuiet">
+            <summary>
+            Returns true if we are the host and we can command the ManWorldTileExt. Silent variant with no log spam
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostCanCommandTileLoader">
+            <summary>
+            Returns true if we are the host and we can command the ManWorldTileExt
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostClearAll">
+            <summary>
+            CLears All WorldTile loaders EXCEPT the Dynamic Tile Loaders.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostSetTileLoading(IntVector2,System.Boolean)">
+            <summary>
+            Set the World tile at a specific coordinate to stay loaded.  
+            </summary>
+            <param name="worldTilePos"></param>
+            <param name="Yes"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostSetTileState(IntVector2,WorldTile.State)">
+            <summary>
+            Set a specific tile coordinate to be loaded with a specific state.
+            </summary>
+            <param name="worldTilePos"></param>
+            <param name="state"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostClearTileState(IntVector2)">
+            <summary>
+            Set a specific tile coordinate to be cleared of it's specific state
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.ClientIsRequestLoadingTile(IntVector2)">
+            <summary>
+            Check to see if a tile is being loaded.  This must be called once on every client.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.ClientTempLoadTile(IntVector2,System.Boolean,System.Single)">
+            <summary>
+            Make a tile load completely by force!  This must be called once on every client.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostOnly_ReloadTile(UnityEngine.Vector3,System.Boolean)">
+            <summary>
+            Force unload and reload a tile.  This is Single-Player only!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostOnly_ReloadTile(IntVector2,System.Boolean)">
+            <summary>
+            Force unload and reload a tile.  This is Single-Player only!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.HostOnly_ReloadENTIREScene(System.Boolean)">
+            <summary>
+            Force unload and reload THE ENTIRE SCENE.  This is Single-Player only!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.ClientRegisterDynamicTileLoader(TerraTechETCUtil.ITileLoader)">
+            <summary>
+            Register a Dynamically moving tile loader.  This must be called once on every client.
+            </summary>
+            <param name="loader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldTileExt.ClientUnregisterDynamicTileLoader(TerraTechETCUtil.ITileLoader)">
+            <summary>
+            Unregister a Dynamically moving tile loader.  This must be called once on every client.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.WorldTilePatches.TileManagerPatches.UpdateTileRequestStates_Postfix(TileManager,System.Collections.Generic.List{IntVector2}@)">
+            <summary>
+            EnableTileLoading
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldDeformerExt.RegisterModdedTerrain(System.String,System.Int32,System.Collections.Generic.Dictionary{IntVector2,TerraTechETCUtil.TerrainModifier})">
+            <summary>
+            Assign a mod that alters terrain here!  Values altered in the object "terraChange" will be 
+            applied automatically on world tile load or immedeately by call to TempResetALLTerrain() then ReloadTerrainMods().
+            </summary>
+            <param name="modName">The name of the mod to store. Must be unique</param>
+            <param name="priority">The assigned priority of the mod.  Lower priorities go first!</param>
+            <param name="terraChange">The TerrainMod to use.  You can change the given instance to directly edit the registered entry</param>
+            <returns>The final set priority of the mod</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldDeformerExt.GetModdedTerrainPriorityIndex(System.String,System.Int32@)">
+            <summary>
+            Get the priority of the terrain affilated with a mod
+            </summary>
+            <param name="modName">The name of the mod to store. Must be unique</param>
+            <param name="priority">The set priority of the mod</param>
+            <returns>True if we found it</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldDeformerExt.UnregisterModdedTerrain(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="modName">The modname to remove</param>
+            <returns>True if we removed it</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldDeformerExt.ResetALLModifiedTerrain(System.Boolean)">
+            <summary>
+            Reloads ALL terrain affected by TerrainMods!
+              This is only TEMPORARY
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldDeformerExt.ResetCurrentlyTargetedTerrain(System.Boolean)">
+            <summary>
+            Reloads terrain affected by TerrainMods, assuming the terrain mods were not changed beforehand!
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ManWorldDeformerExt.ReloadALLTerrainMods">
+            <summary>
+            ADDITIVELY applies all registered TerrainMods to the world all at once.
+              You may want to call ResetCurrentlyTargetedTerrain() before this!
+            </summary>
+        </member>
+        <member name="P:TerraTechETCUtil.ManWorldGeneratorExt.AmplifiedTerrain">
+            <summary>
+            The terrain has been vertically expanded by TerrainOperations.RescaleFactor = 4x
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.ManWorldGeneratorExt.biomesAllOld">
+            <summary>
+            This is LEGACY
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.LocalisationExt.LOC_ExtGeneralID">
+            <summary>
+            For anything that should be rigistered that DOES NOT have an existing ID to assign to in StringBanks
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.ILocExtStringMod.TryLookup(LocalisationEnums.Languages,System.String@)">
+            <summary>
+            Returns only if EXACT language match exists, without doing fallback to english!
+            </summary>
+            <param name="lang"></param>
+            <param name="output"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TerraTechETCUtil.LocExtString">
+            <summary>
+            Represents a multi-lingual string instance that is managed by the base game
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtCategory.#ctor(System.Type)">
+            <summary>
+            FOR THE ENUM TYPE THAT LISTS EVERY POSSIBLE OUTPUT FOR THIS STRING
+            </summary>
+            <param name="enumType"></param>
+        </member>
+        <member name="T:TerraTechETCUtil.LocExtStringFunc">
+            <summary>
+            DO NOT RELY ON THIS - LAGGY AF
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtStringFunc.GetEnglish">
+            <summary>
+            DOES NOT WORK FOR VANILLA ENTRY REFERENCING
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.LocExtStringMod">
+            <summary>
+            Does NOT support vanilla referencing
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtStringMod.#ctor(LocalisationEnums.StringBanks,System.Int32)">
+            <summary>
+            ONLY FOR VANILLA ENTRY REFERENCING
+            </summary>
+            <param name="category"></param>
+            <param name="stringID"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtStringMod.GetEnglish">
+            <summary>
+            DOES NOT WORK FOR VANILLA ENTRY REFERENCING
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.LocExtStringNonReg">
+            <summary>
+            Non-registered variant. Does not reserve an index of get looked up at all.
+              Good for just filling LocExtStringBase fields when there are no overrides for a standard string for some reason
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtStringVanilla.#ctor(System.String,LocalisationEnums.StringBanks,System.Int32)">
+            <summary>
+            ONLY FOR VANILLA ENTRY REFERENCING
+            </summary>
+            <param name="englishFallback"></param>
+            <param name="category"></param>
+            <param name="stringID"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtStringVanillaText.#ctor(System.String,System.String,System.String)">
+            <summary>
+            ONLY FOR VANILLA ENTRY REFERENCING
+            </summary>
+            <param name="englishFallback"></param>
+            <param name="bank"></param>
+            <param name="stringID"></param>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtStringVanillaText.CreateNewLocalisedString(System.Boolean)">
+            <summary>
+            LOSSY - m_InlineGlyphs was not transferred!!!
+            </summary>
+            <param name="guiExpanded"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtStringVanillaText.SetLocalisedString(LocalisedString)">
+            <summary>
+            LOSSY - m_InlineGlyphs was not transferred!!!
+            </summary>
+            <param name="guiExpanded"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.LocExtStringVanillaText.SetTextAuto(TooltipComponent)">
+            <summary>
+            LOSSY - m_InlineGlyphs was not transferred!!!
+            </summary>
+            <param name="guiExpanded"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SuperNativeOptions">
+            <summary>
+            NativeOptions with a bit more UI to it
+            </summary>
+        </member>
+        <member name="T:ManEvilFloraFauna">
+            <summary>
+            WIP, INCOMPLETE
+            Controls all that lives, breathes and is ANGRY non-Tech
             </summary>
         </member>
     </members>
