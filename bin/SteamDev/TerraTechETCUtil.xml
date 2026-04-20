@@ -85,6 +85,51 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.OnPool_Postfix(Projectile)">
+            <summary>
+            PatchProjectile
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.OnRecycle_Prefix(Projectile)">
+            <summary>
+            PatchProjectileRemove
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.HandleCollision_Prefix(Projectile,Damageable@,UnityEngine.Vector3@,UnityEngine.Collider@,System.Boolean@)">
+            <summary>
+            PatchProjectileCollision
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.Fire_Postfix(Projectile,FireData@,ModuleWeapon@,Tank@)">
+            <summary>
+            PatchProjectileFire
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllUIPatches.ManPointerPatches.UpdateMouseEvents_Prefix(ManPointer@)">
+            <summary>
+            LockMouseWhenOverSubMenu
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllUIPatches.TankCameraPatches.OnManualTargetingEvent_Prefix(TankCamera@)">
+            <summary>
+            LockMouseWhenOverSubMenu2
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllUIPatches.TankCameraPatches.OnMouseZoomEvent_Prefix(TankCamera@)">
+            <summary>
+            LockMouseWhenOverSubMenu3
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllUIPatches.ManHUDPatches.HandleEscapeKey_Prefix(ManHUD@,System.Boolean@)">
+            <summary>
+            EatEscapeKeypress
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AllUIPatches.ManHUDPatches.HandleEscapeKey_Postfix(ManHUD@,System.Boolean@)">
+            <summary>
+            EatEscapeKeypress(2)
+            </summary>
+        </member>
         <member name="M:TerraTechETCUtil.RawTechUtil.GetCorpExtended(BlockTypes)">
             <summary>
             Only call for cases where we want only vanilla corps!
@@ -219,6 +264,41 @@
             <param name="Charged"></param>
             <param name="ForceInstant"></param>
             <returns></returns>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIMiniMenu.RunGUI(System.Int32)">
+            <summary>
+            What to display on the GUI window itself
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIMiniMenu.DelayedUpdate">
+            <summary>
+            Once every 50 visual frames
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIMiniMenu.FastUpdate">
+            <summary>
+            Once every visual frames
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIMiniMenu.OnRemoval">
+            <summary>
+            Triggered when the window is removed entirely
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIMiniMenu.OnOpen">
+            <summary>
+            Triggered when the window is opened
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.GUIMiniMenu`1">
+            <summary>
+            A universal menu for use
+            </summary>
+        </member>
+        <member name="T:TerraTechETCUtil.WikiPageTools">
+            <summary>
+            Note: There can only be one per mod!
+            </summary>
         </member>
         <member name="T:TerraTechETCUtil.ExtendedWiki">
             <summary>
@@ -942,6 +1022,75 @@
             STD_Text_Box_01
             </summary>
         </member>
+        <member name="M:TerraTechETCUtil.AltUI.StartUI">
+            <summary>
+            Change the UI to a softer hybrid style of mostly current and some old.
+            <para><b>Make sure to finish it with </b><c>EndUI()</c></para>
+            <para>Use a try-finally block to insure you call <c>EndUI()</c> even if an exception happens!</para>
+            </summary>
+            Use a try-finally block to insure you call <c>EndUI()</c> even if an exception happens!
+            <exception cref="T:System.InvalidOperationException">The UI crashed and now everything is screwed up</exception>
+        </member>
+        <member name="M:TerraTechETCUtil.AltUI.StartUI(System.Single)">
+            <summary>
+            Change the UI to a softer hybrid style of mostly current and some old.
+            <para><b>Make sure to finish it with </b><c>EndUI()</c></para>
+            <para>Use a try-finally block to insure you call <c>EndUI()</c> even if an exception happens!</para>
+            </summary>
+            <param name="UIAlpha">Transparency of the window itself</param>
+            <exception cref="T:System.InvalidOperationException">The UI crashed and now everything is screwed up</exception>
+        </member>
+        <member name="M:TerraTechETCUtil.AltUI.StartUI(System.Single,System.Single)">
+            <summary>
+            Change the UI to a softer hybrid style of mostly current and some old.
+            <para><b>Make sure to finish it with </b><c>EndUI()</c></para>
+            <para>Use a try-finally block to insure you call <c>EndUI()</c> even if an exception happens!</para>
+            </summary>
+            <param name="UIAlpha">Transparency of the window itself</param>
+            <param name="UIContentAlpha">Transparency of content INSIDE the window</param>
+            <exception cref="T:System.InvalidOperationException">The UI crashed and now everything is screwed up</exception>
+        </member>
+        <member name="M:TerraTechETCUtil.AltUI.StartUIOpaque">
+            <summary>
+            Change the UI to a non-transparancy, softer hybrid style of mostly current and some old.
+            <para><b>Make sure to finish it with </b><c>EndUI()</c></para>
+            <para>Use a try-finally block to insure you call <c>EndUI()</c> even if an exception happens!</para>
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The UI crashed and now everything is screwed up</exception>
+        </member>
+        <member name="M:TerraTechETCUtil.AltUI.StartUISharp">
+            <summary>
+            Change the UI to a hybrid style of mostly current and some old.
+            <para><b>Make sure to finish it with </b><c>EndUI()</c></para>
+            <para>Use a try-finally block to insure you call <c>EndUI()</c> even if an exception happens!</para>
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The UI crashed and now everything is screwed up</exception>
+        </member>
+        <member name="M:TerraTechETCUtil.AltUI.StartUISharp(System.Single)">
+            <summary>
+            Change the UI to a hybrid style of mostly current and some old.
+            <para><b>Make sure to finish it with </b><c>EndUI()</c></para>
+            <para>Use a try-finally block to insure you call <c>EndUI()</c> even if an exception happens!</para>
+            </summary>
+            <param name="UIAlpha">Transparency of the window itself</param>
+            <exception cref="T:System.InvalidOperationException">The UI crashed and now everything is screwed up</exception>
+        </member>
+        <member name="M:TerraTechETCUtil.AltUI.StartUISharp(System.Single,System.Single)">
+            <summary>
+            Change the UI to a hybrid style of mostly current and some old.
+            <para><b>Make sure to finish it with </b><c>EndUI()</c>.</para>
+            <para>Use a try-finally block to insure you call <c>EndUI()</c> even if an exception happens!</para>
+            </summary>
+            <param name="UIAlpha">Transparency of the window itself</param>
+            <param name="UIContentAlpha">Transparency of content INSIDE the window</param>
+            <exception cref="T:System.InvalidOperationException">The UI crashed and now everything is screwed up</exception>
+        </member>
+        <member name="M:TerraTechETCUtil.AltUI.EndUI">
+            <summary>
+            Returns the custom UI back to a standard format.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The UI crashed and now everything is screwed up</exception>
+        </member>
         <member name="F:TerraTechETCUtil.AltUI.textInput">
             <summary>
             For the Popups that appear like the BB sold thing
@@ -975,6 +1124,11 @@
         <member name="F:TerraTechETCUtil.AltUI.CaseThis">
             <summary>
             For the Popups that appear like the BB sold thing
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.AltUI.PopupDebugInfo(System.String,WorldPosition)">
+            <summary>
+            BLUE
             </summary>
         </member>
         <member name="T:TerraTechETCUtil.IChildModuleWeapon">
@@ -1050,25 +1204,11 @@
             </summary>
             <param name="inst"></param>
         </member>
-        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.OnPool_Postfix(Projectile)">
+        <member name="M:TerraTechETCUtil.LegModExt.InsurePatches">
             <summary>
-            PatchProjectile
+            Avoid catching the exception since TerraTechETCUtil will not try again later!
             </summary>
-        </member>
-        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.OnRecycle_Prefix(Projectile)">
-            <summary>
-            PatchProjectileRemove
-            </summary>
-        </member>
-        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.HandleCollision_Prefix(Projectile,Damageable@,UnityEngine.Vector3@,UnityEngine.Collider@,System.Boolean@)">
-            <summary>
-            PatchProjectileCollision
-            </summary>
-        </member>
-        <member name="M:TerraTechETCUtil.AllProjectilePatches.ProjectilePatches.Fire_Postfix(Projectile,FireData@,ModuleWeapon@,Tank@)">
-            <summary>
-            PatchProjectileFire
-            </summary>
+            <exception cref="T:System.Exception">If TerraTechETCUtil completely failed to launch</exception>
         </member>
         <member name="F:TerraTechETCUtil.ManIngameWiki.WikiPage.title">
             <summary>
@@ -1143,6 +1283,28 @@
             To ONLY be set by GUIInst.SetGUI(bool state)!!!
             </summary>
         </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.AddEscapeableCallback(System.Action,System.Boolean)">
+            <summary>
+            Inserts an event QUEUE-wise that will trigger and then disconnect after an ESC keypress.
+            <b>MAKE SURE TO CATCH THE ACTION!</b>
+            </summary>
+            <param name="action">The event to trigger once on ESC keypess</param>
+            <param name="beforeAllGUI">True to trigger BEFORE closing vanilla UI</param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.AddEscapeableCallbackStack(System.Action,System.Boolean)">
+            <summary>
+            Inserts an event STACK-wise an event that will trigger and then disconnect after an ESC keypress
+            </summary>
+            <param name="action">The event to trigger once on ESC keypess</param>
+            <param name="beforeAllGUI">True to trigger BEFORE closing vanilla UI</param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.RemoveEscapeableCallback(System.Action,System.Boolean)">
+            <summary>
+            Removes an ESC keypress event from ANYWHERE in the event list
+            </summary>
+            <param name="action">The event that is currently triggering once on ESC keypess</param>
+            <param name="beforeAllGUI">True if the trigger is BEFORE closing vanilla UI</param>
+        </member>
         <member name="M:TerraTechETCUtil.ManModGUI.ChangePopupPositioning(UnityEngine.Vector2,TerraTechETCUtil.GUIPopupDisplay)">
             <summary>
             screenPos x and y must be within 0-1 float range!
@@ -1189,27 +1351,112 @@
                USE SPARINGLY AS THIS IS ANNOYING TO DEAL WITH!!!
             </summary>
         </member>
-        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(UnityEngine.Vector2,TerraTechETCUtil.GUIPopupDisplay)">
+        <member name="M:TerraTechETCUtil.ManModGUI.CreateNewPopupSingle(System.String)">
             <summary>
-            Position in percent of the max screen width and length
-            </summary>
-            <param name="screenPos"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(UnityEngine.Vector2)">
-            <summary>
-            Position in percent of the max screen width and length. 
-             Controls the currentGUIWindow
+            Creates a new hidden GUIPopupDisplay. 
+            DOES NOT NULL CHECK!!!  DOES NOT ADD TO MANAGED POPUP LIST
             </summary>
         </member>
-        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup">
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(TerraTechETCUtil.GUIPopupDisplay,System.Boolean)">
             <summary>
-            Controls the currentGUIWindow
+            Show a specific popup
+            </summary>
+            <param name="disp">Specific window instance target</param>
+            <param name="focusImmediately">Rise this window to the top of all menus</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(TerraTechETCUtil.GUIPopupDisplay,UnityEngine.Vector2,System.Boolean)">
+            <summary>
+            Show a specific popup
+            </summary>
+            <param name="disp">Specific window instance target</param>
+            <param name="screenPos">Position relative to the entire main screen [0 ~ 1]</param>
+            <param name="focusImmediately">Rise this window to the top of all menus</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(TerraTechETCUtil.GUIMiniMenu,System.Boolean)">
+            <summary>
+            Show a specific popup
+            </summary>
+            <param name="menu">Specific window menu target</param>
+            <param name="focusImmediately">Rise this window to the top of all menus</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(TerraTechETCUtil.GUIMiniMenu,UnityEngine.Vector2,System.Boolean)">
+            <summary>
+            Show a specific popup
+            </summary>
+            <param name="menu">Specific window menu target</param>
+            <param name="screenPos">Position relative to the entire main screen [0 ~ 1]</param>
+            <param name="focusImmediately">Rise this window to the top of all menus</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(System.Boolean)">
+            <summary>
+            Show the currently focussed popup
+            </summary>
+            <param name="focusImmediately">Rise this window to the top of all menus</param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.ShowPopup(UnityEngine.Vector2,System.Boolean)">
+            <summary> 
+            Show the currently focussed popup
+            </summary>
+            <param name="screenPos">Position relative to the entire main screen [0 ~ 1]</param>
+            <param name="focusImmediately">Rise this window to the top of all menus</param>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.HidePopup(TerraTechETCUtil.GUIPopupDisplay)">
+            <summary>
+            Hide a specific popup
+            </summary>
+            <param name="disp">Specific window instance target</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.HidePopup(TerraTechETCUtil.GUIMiniMenu)">
+            <summary>
+            Hide a specific popup
+            </summary>
+            <param name="menu">Specific window menu target</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="M:TerraTechETCUtil.ManModGUI.UpdateAllPopups">
+            <summary>
+            Once every 50 visual frames
             </summary>
         </member>
-        <member name="T:TerraTechETCUtil.GUIMiniMenu`1">
+        <member name="T:TerraTechETCUtil.GUIPopupDisplay">
             <summary>
-            A universal menu for use
+            This manages the window that HOLDS the GUIMiniMenu.
+            <b>Use GUIMiniMenu for the window contents!</b>
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIPopupDisplay.Show">
+            <summary>
+            Show this popup
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIPopupDisplay.Hide">
+            <summary>
+            Hide this popup
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIPopupDisplay.Remove">
+            <summary>
+            Remove and DELETE this popup. Does not remove external references to attached GUIMiniMenu.
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIPopupDisplay.FocusOnMe">
+            <summary>
+            Rise this to the top and focus it
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIPopupDisplay.MoveMeWithinScreenBoundsStrict">
+            <summary>
+            Make sure the WHOLE POPUP is in view of the player
+            </summary>
+        </member>
+        <member name="M:TerraTechETCUtil.GUIPopupDisplay.MoveMeWithinScreenBoundsNonStrict">
+            <summary>
+            Make sure at least a small section of the popup is in view of the player
             </summary>
         </member>
         <member name="P:TerraTechETCUtil.UIHelpersExt.BigF5broningBannerActive">
@@ -1254,9 +1501,51 @@
             Does NOT return end comma with newline!
             </summary>
         </member>
+        <member name="F:TerraTechETCUtil.WikiPageBlock.AdditionalSearchFilters">
+            <summary>
+            page, stringSection, searchText - 
+            Invoke the Action as true if the filter was triggered and true, or false if the filter failed to cancel the search target.
+            Do not invoke if the filter was not triggered!
+            <para>Use ManIngameWiki.WikiPage.FilterBlockPass for quick text filtering.  Be sure to end it with '<b>:</b>'!</para>
+            <para>Also add the annotation to AdditionalSearchFiltersPopup with a newline call</para>
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.WikiPageBlock.AdditionalSearchFiltersPopup">
+            <summary>
+            Use the stringbuilder given to AppendLine() new search filters for the user
+            </summary>
+        </member>
         <member name="M:TerraTechETCUtil.WikiPageCorp.GatheredInfo.#ctor(System.Int32)">
             <summary>
             Gather ALL the details by mathmatical, computational BRUTE-FORCE
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.WikiPageChunk.AdditionalSearchFilters">
+            <summary>
+            page, stringSection, searchText - 
+            Invoke the Action as true if the filter was triggered and true, or false if the filter failed to cancel the search target.
+            Do not invoke if the filter was not triggered!
+            <para>Use ManIngameWiki.WikiPage.FilterBlockPass for quick text filtering.  Be sure to end it with '<b>:</b>'!</para>
+            <para>Also add the annotation to AdditionalSearchFiltersPopup with a newline call</para>
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.WikiPageChunk.AdditionalSearchFiltersPopup">
+            <summary>
+            Use the stringbuilder given to AppendLine() new search filters for the user
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.WikiPageScenery.AdditionalSearchFilters">
+            <summary>
+            page, stringSection, searchText - 
+            Invoke the Action as true if the filter was triggered and true, or false if the filter failed to cancel the search target.
+            Do not invoke if the filter was not triggered!
+            <para>Use ManIngameWiki.WikiPage.FilterBlockPass for quick text filtering.  Be sure to end it with '<b>:</b>'!</para>
+            <para>Also add the annotation to AdditionalSearchFiltersPopup with a newline call</para>
+            </summary>
+        </member>
+        <member name="F:TerraTechETCUtil.WikiPageScenery.AdditionalSearchFiltersPopup">
+            <summary>
+            Use the stringbuilder given to AppendLine() new search filters for the user
             </summary>
         </member>
         <member name="T:TerraTechETCUtil.Utilities">

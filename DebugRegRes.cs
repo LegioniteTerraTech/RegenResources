@@ -93,6 +93,12 @@ namespace RegenResources
             Debug.Log(KickStart.ModID + ": Error happened " + Warning + " - " + StackTraceUtility.ExtractStackTrace());
             seriousError = true;
         }
+        internal static void ErrorReport(string Warning, Exception e)
+        {
+            warning.Add(Warning);
+            Debug.Log(KickStart.ModID + ": Error happened " + Warning + " - " + e.ToString());
+            seriousError = true;
+        }
         internal static void Warning(string Warning)
         {
             Debug.Log(KickStart.ModID + ": Warning happened " + Warning + " - " + StackTraceUtility.ExtractStackTrace());
