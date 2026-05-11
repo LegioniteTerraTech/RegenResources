@@ -152,10 +152,11 @@ namespace RegenResources
                 }
             }
         }
+        /*
         [Obsolete]
         private static void DelayedInit_LEGACY()
         {
-            foreach (var diction in SpawnHelper.IterateSceneryTypes())
+            foreach (var diction in SpawnHelper.)
             {
                 if (diction == null)
                     continue;
@@ -185,6 +186,6 @@ namespace RegenResources
                     }
                 }
             }
-        }
+        }//*/
     }
 }
